@@ -43,15 +43,15 @@ program(c3build)
 
 ## Functions
 
-### `compile()`
+### `compiler()`
 
-`compile()` defines the compiler version
+`compiler()` defines the compiler version
 
 ```c3build
-compile(VERSION 0.7.5)
-compile(VERSION MIN 0.7.5)
-compile(VERSION MAX 0.7.9)
-compile(VERSION MIN 0.7.5 MAX 0.7.9)
+compiler(VERSION 0.7.5)
+compiler(VERSION MIN 0.7.5)
+compiler(VERSION MAX 0.7.9)
+compiler(VERSION MIN 0.7.5 MAX 0.7.9)
 ```
 
 ### `project()`
