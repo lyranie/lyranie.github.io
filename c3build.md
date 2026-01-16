@@ -207,6 +207,20 @@ depending on the first parameter (`LIB` or `EXE`). Variables can be used in stri
 `OS_DARWIN` - can only be used for `ifdef` and will result in empty string if used otherwise<br>
 `OS_LINUX` - can only be used for `ifdef` and will result in empty string if used otherwise<br>
 
+## Custom
+You can also create variables like this
+```c3build
+PERSON = "John"
+
+print("Hello $(PERSON)")
+```
+Additionally you can reference variables in other variables
+```c3build
+FOO = "foo"
+BAR = "bar"
+FOO_BAR = "$(FOO)$(BAR)"
+```
+
 ## Installing
 As of now c3build does not offer any prebuilt binaries and must be built from source.
 ```shell
