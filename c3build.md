@@ -10,7 +10,7 @@ layout: doc
 
 ```c3build
 compiler(VERSION MIN 0.7.9)
-project(example VERSION 0.1.0)
+project(example VERSION 0.1.0 AUTHOR "John") -- VERSION and AUTHOR are optional
 
 add("src/main.c3") -- assuming that this file exists
 
@@ -21,7 +21,17 @@ program(example)
 
 ```c3build
 compiler(VERSION MIN 0.7.1 MAX 0.7.9)
-project(c3build VERSION 0.1.0)
+project(c3build
+        VERSION 0.3.0
+        AUTHOR "Kiana Bennett")
+
+find(EXE "git")
+
+option("--trust=full")
+
+ifdef(exe_git)
+    option("-D GIT_HASH")
+endif()
 
 task("install")
     print("Installing...")
@@ -203,6 +213,7 @@ depending on the first parameter (`LIB` or `EXE`). Variables can be used in stri
 `HOME` - points to the home directory<br>
 `PROJECT` - points to the project name<br>
 `VERSION` - points to the project version<br>
+`AUTHOR` - points to the project author<br>
 `OS_WINDOWS` - can only be used for `ifdef` and will result in empty string if used otherwise<br>
 `OS_DARWIN` - can only be used for `ifdef` and will result in empty string if used otherwise<br>
 `OS_LINUX` - can only be used for `ifdef` and will result in empty string if used otherwise<br>
@@ -221,11 +232,23 @@ BAR = "bar"
 FOO_BAR = "$(FOO)$(BAR)"
 ```
 
+## Variable Injection
+c3build allows you to inject the `AUTHOR` and `VERSION` into c3. You can create constants in a file called `c3build.c3` anywhere in your project like so
+::: code-group
+```cpp [c3build.c3]
+module version;
+
+const VERSION = "@@VERSION@@";
+const AUTHOR  = "@@AUTHOR@@";
+```
+:::
+Note that the constant names and module themselves are not important, only the string is.
+
 ## Installing
 As of now c3build does not offer any prebuilt binaries and must be built from source.
 ```shell
 git clone https://github.com/lyranie/c3-build-file.git
 cd c3-build-file
-c3c build
+c3c build --trust=full
 ```
 and that's it!
