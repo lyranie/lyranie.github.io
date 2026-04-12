@@ -1,0 +1,41 @@
+#about {
+    position: relative;
+    background-color: var(--background-primary);
+
+    .image-layer {
+        position: absolute;
+        background-image: url("/background.svg");
+        background-size: cover;
+        background-position-x: center;
+        clip-path: polygon(0 0, 100% 0, 100% 49%, 0 71%);
+        inset: 0;
+    }
+
+    .cover-layer {
+        position: absolute;
+        inset: 0;
+        clip-path: polygon(0 0, 100% 0, 100% 49%, 0 71%);
+    }
+
+    .text-layer {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        translate: -50% 0;
+        display: flex;
+        gap: 50px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-header {
+        color: var(--text-primary);
+        font-size: 50px;
+    }
+
+    .about-text {
+        color: var(--text-primary);
+        font-size: 24px;
+        max-width: 600px;
+    }
+}

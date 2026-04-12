@@ -1,0 +1,125 @@
+---
+import Metadata from "../components/Metadata.astro";
+import Navbar from "../components/Navbar.astro";
+import AboutSection from "../components/AboutSection.astro";
+import "../global.css"
+import "../styles/index.css"
+import Project from "../components/Project.astro";
+
+const projects = [
+    {
+        name: "Floria Client",
+        description: `The Floria client is a Hacked client mod for minecraft. Yes, it's for cheating. No, i do not encourage it. I primarily made it for two reasons:
+        1. Education. I want to both educate myself and others to understand how such cheats function.
+        2. I wanted to better understand these cheats to develop an even better anticheat plugin.
+        Floria has since snowballed into a fully implemented client that receives updates somewhat regularly.`,
+        code: "https://github.com/TheFloriaProject/FloriaClient",
+        image: "/floria-client.png"
+    },
+    {
+        name: "Floria Anticheat",
+        description: `This is where it gets interesting. This is an anticheat plugin for minecraft servers that tries to detect every implemented cheat in the Client possible. of course there are some cheats that simply cannot be detected, e.g. client-side rendering. This is the reason the client exists to begin with. rofl.`,
+        code: "https://github.com/TheFloriaProject/FloriaAC",
+        image: "/floria-ac.png"
+    },
+    {
+        name: "C3BuildFile",
+        description: `C3Build is a buildscript i wrote for the wonderful language called C3. It aims to do a few things to make my life easier.
+        1. Custom tasks. i want to be able to create and run custom tasks without needing to worry much.
+        2. Be not bloated. C3Build is very minimal and only does the necessary. Yes there are a few QoL features but they are kept to what i deem necessary.`,
+        code: "https://github.com/C3Build/c3-build-file",
+        visit: "https://c3build.lyranie.dev",
+        image: "/c3-build.png"
+    },
+    {
+        name: "Luna",
+        description: "Luna is a compiler i wrote in C3. Does it lack features? Yes. Is it complete? No! Luna is very much a work in progress. I hope to eventually release and tend to it more at a later point. It is usable with some small issues here and there but i'll work it out.",
+        code: "https://hub.lyranie.dev/luna",
+        image: "/luna.png"
+    }
+]
+---
+<Metadata/>
+<Navbar/>
+<body>
+<AboutSection/>
+<section id="stack">
+    <h1>Tech stack</h1>
+    <div class="stacks">
+        <div class="stack">
+            <div class="stack-header">
+                <h3>Web</h3>
+                <div class="stack-logos">
+                    <img alt="spring" src="/spring.png"/>
+                    <img alt="vue" src="/vue.png"/>
+                    <img alt="mysql" src="/mysql.png"/>
+                </div>
+            </div>
+            <div class="points">
+                <p>spring boot</p>
+                <p>vue3</p>
+                <p>mysql</p>
+            </div>
+        </div>
+        <div class="stack">
+            <div class="stack-header">
+                <h3>Application</h3>
+                <div class="stack-logos">
+                    <img alt="kotlin" src="/kotlin.png"/>
+                    <img alt="java" src="/java.png"/>
+                    <img alt="c3" src="/c3.svg"/>
+                    <img alt="python" src="/python.png"/>
+                    <img alt="node" src="/node.webp"/>
+                </div>
+            </div>
+            <div class="points">
+                <p>kotlin</p>
+                <p>java</p>
+                <p>c3</p>
+                <p>python</p>
+                <p>node</p>
+            </div>
+        </div>
+        <div class="stack">
+            <div class="stack-header">
+                <h3>Honorable mentions</h3>
+                <div class="stack-logos">
+                    <img alt="docker" src="/docker.svg"/>
+                    <img alt="git" src="/git.svg"/>
+                    <img alt="jetbrains" src="/jetbrains.png"/>
+                    <img alt="bash" src="/bash.png"/>
+                </div>
+            </div>
+            <div class="points">
+                <p>docker</p>
+                <p>git</p>
+                <p>jetbrains products</p>
+                <p>bash</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="projects">
+    {projects.map((project) => (
+            <Project name={project.name}
+                     description={project.description}
+                     code={project.code}
+                     visit={project.visit}
+                     image={project.image}/>
+    ))}
+</section>
+</body>
+<script>
+    const projects = document.getElementById('projects') as HTMLElement;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.intersectionRatio === 1) {
+                projects.style.overflowY = 'scroll';
+            } else {
+                projects.style.overflowY = 'hidden';
+            }
+        });
+    }, {threshold: 1.0});
+
+    observer.observe(projects);
+</script>

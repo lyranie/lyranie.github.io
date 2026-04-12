@@ -1,0 +1,52 @@
+---
+import "../styles/project.css"
+
+const { name, description, code, visit, image } = Astro.props
+---
+<div class="project">
+    <div class="project-image" style=`background-image: url("${image}")` />
+    <div class="project-cover" />
+    <div class="project-about">
+        <h1 class="project-name">{name}</h1>
+        <p class="project-description">{description}</p>
+        <div class="project-links">
+            <a class="project-code" href=`${code}` target="_blank">code</a>
+            {visit !== undefined ? <a class="project-visit" href=`${visit}` target="_blank">visit</a> : <span></span>}
+        </div>
+    </div>
+</div>
+<script>
+    const projects = document.getElementsByClassName('project');
+    const coverLayers = document.getElementsByClassName('project-cover');
+
+    window.addEventListener("resize", () => {
+        updateShadows()
+    });
+
+    function updateShadows() {
+        for (let i = 0; i < coverLayers.length; i++) {
+            updateShadow(projects.item(i) as HTMLElement, coverLayers.item(i) as HTMLElement);
+        }
+    }
+
+    function updateShadow(project: HTMLElement, coverLayer: HTMLElement) {
+        const width = project.offsetWidth;
+        const height = project.offsetHeight;
+
+        const x1 = width * 0.69; // left edge
+        const x2 = width * 0.44; // right edge
+
+        const angle = Math.atan2(x2 - x1, height) * (180 / Math.PI) + 90;
+
+        coverLayer.style.background = `linear-gradient(
+                -${angle}deg,
+                transparent 0%,
+                black 40%,
+                rgba(0, 0, 0, 0.9) 41%,
+                transparent 45%,
+                transparent 100%
+        )`;
+    }
+
+    updateShadows();
+</script>

@@ -1,0 +1,63 @@
+---
+import "../styles/about.css"
+
+const today = new Date();
+const birth = new Date("2003-02-08");
+let age = today.getFullYear() - birth.getFullYear();
+const hasBirthdayPassed =
+    today.getMonth() > birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+if (!hasBirthdayPassed) age--;
+---
+<section id="about">
+    <div class="image-layer"></div>
+    <div class="cover-layer"></div>
+    <div class="text-layer">
+        <h1 class="about-header">About Me</h1>
+        <p class="about-text">Heya! My name is Kiana and i'm a {age} year old Software engineer from Germany. My focus lies
+            in software programming rather than web development. However i do not shy away from webdev as you can see from
+            this portfolio. That's enough about me tho, scroll down for some of my projects.</p>
+    </div>
+</section>
+<script>
+    const about = document.querySelector('#about') as HTMLElement;
+    const imageLayer = document.querySelector('.image-layer') as HTMLElement;
+    const coverLayer = document.querySelector('.cover-layer') as HTMLElement;
+    const textLayer = document.querySelector('.text-layer') as HTMLElement;
+
+    window.addEventListener("scroll", () => {
+        const scrollY = window.scrollY;
+        const imageOffset = 50 + (scrollY * -0.3);
+        const coverOffset = 28 + (scrollY * -0.1);
+        const textOffset = 40 + (scrollY * -0.02);
+
+        imageLayer.style.backgroundPositionY = `${imageOffset}%`;
+        coverLayer.style.backgroundPositionY = `${coverOffset}%`;
+        textLayer.style.top = `${textOffset}%`;
+    });
+
+    window.addEventListener("resize", () => {
+        updateShadow();
+    });
+
+    function updateShadow() {
+        const width = about.offsetWidth;
+        const height = about.offsetHeight;
+
+        const y1 = height * 0.49; // left edge
+        const y2 = height * 0.71; // right edge
+
+        const angle = Math.atan2(y2 - y1, width) * (180 / Math.PI);
+
+        coverLayer.style.background = `linear-gradient(
+                -${angle}deg,
+                transparent 0%,
+                black 40%,
+                rgba(0, 0, 0, 0.9) 41%,
+                transparent 45%,
+                transparent 100%
+        )`;
+    }
+
+    updateShadow();
+</script>
